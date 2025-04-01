@@ -1,0 +1,51 @@
+---
+title: "Stats-Project"
+author: "Christopher Wallis"
+date: "2025-04-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE}
+
+library(ggplot2)
+library(dplyr)
+library(knitr)
+
+```
+
+
+<h3><strong> Dataset </strong></h3>
+
+The following is a data set gathered using the SAMHSA (Substance Abuse and Mental Health Services Administration) website on the topic of drug usage in the United states and is categorized by age, state, and type of drug used.
+
+<u> Estimate- </u>
+<br>
+&nbsp; This is the estimate of drug usage in the thousands. If there is less than 1000 cases but more than 500 cases it will be recorded as a 0.
+
+<u> Age- </u>
+<br>
+&nbsp; This is the age range of the cases being recorded and are documented by the following rules: 1 = 12-17 years, 2 = 18-25 years, 3 = 26 years or older.
+
+<u> State- </u>
+<br>
+&nbsp; This is the state in the United States, with the addtion of the District of Columbia.
+
+<u> Drug- </u>
+<br>
+&nbsp; This is the drug being used by the individuals recorded in the sample.
+
+
+```{r}
+
+drugUsage <- read.csv("StatsProject-Data.csv")
+
+head(drugUsage)
+
+```
+
+
+
