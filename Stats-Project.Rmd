@@ -20,23 +20,27 @@ library(knitr)
 
 <h3><strong> Dataset </strong></h3>
 
-The following is a data set gathered using the SAMHSA (Substance Abuse and Mental Health Services Administration) website on the topic of drug usage in the United states and is categorized by age, state, and type of drug used.
+The following is a data set gathered using environmental tracking websites and contains data on the the meteorologic data in the state of Minnesota as well as the CO2 levels in the atmosphere during the corresponding month and year. 
 
-<u> Estimate- </u>
+<u> Year- </u>
 <br>
-&nbsp; This is the estimate of drug usage in the thousands. If there is less than 1000 cases but more than 500 cases it will be recorded as a 0.
+&nbsp; This is the year for the sample.
 
-<u> Age- </u>
+<u> Month- </u>
 <br>
-&nbsp; This is the age range of the cases being recorded and are documented by the following rules: 1 = 12-17 years, 2 = 18-25 years, 3 = 26 years or older.
+&nbsp; This is the month for the sample.
 
-<u> State- </u>
+<u> Precipitation- </u>
 <br>
-&nbsp; This is the state in the United States, with the addtion of the District of Columbia.
+&nbsp; This is the amount of rainfall in inches.
 
-<u> Drug- </u>
+<u> Average Temp- </u>
 <br>
-&nbsp; This is the drug being used by the individuals recorded in the sample.
+&nbsp; This is the average temp during the month for the corresponding sample. This is measured in Celsius.
+
+<u> CO2- </u>
+<br>
+&nbsp; This is the average CO2 concentration for the corresponding time sample. This is measured in ppm (parts per million).
 
 
 ```{r}
@@ -44,6 +48,12 @@ The following is a data set gathered using the SAMHSA (Substance Abuse and Menta
 drugUsage <- read.csv("StatsProject-Data.csv")
 
 head(drugUsage)
+
+```
+
+```{r}
+
+
 
 ```
 

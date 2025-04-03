@@ -360,30 +360,29 @@ display: none;
 <h3>
 <strong> Dataset </strong>
 </h3>
-<p>The following is a data set gathered using the SAMHSA (Substance
-Abuse and Mental Health Services Administration) website on the topic of
-drug usage in the United states and is categorized by age, state, and
-type of drug used.</p>
-<p><u> Estimate- </u> <br>   This is the estimate of drug usage in the
-thousands. If there is less than 1000 cases but more than 500 cases it
-will be recorded as a 0.</p>
-<p><u> Age- </u> <br>   This is the age range of the cases being
-recorded and are documented by the following rules: 1 = 12-17 years, 2 =
-18-25 years, 3 = 26 years or older.</p>
-<p><u> State- </u> <br>   This is the state in the United States, with
-the addtion of the District of Columbia.</p>
-<p><u> Drug- </u> <br>   This is the drug being used by the individuals
-recorded in the sample.</p>
+<p>The following is a data set gathered using environmental tracking
+websites and contains data on the the meteorologic data in the state of
+Minnesota as well as the CO2 levels in the atmosphere during the
+corresponding month and year.</p>
+<p><u> Year- </u> <br>   This is the year for the sample.</p>
+<p><u> Month- </u> <br>   This is the month for the sample.</p>
+<p><u> Precipitation- </u> <br>   This is the amount of rainfall in
+inches.</p>
+<p><u> Average Temp- </u> <br>   This is the average temp during the
+month for the corresponding sample. This is measured in Celsius.</p>
+<p><u> CO2- </u> <br>   This is the average CO2 concentration for the
+corresponding time sample. This is measured in ppm (parts per
+million).</p>
 <pre class="r"><code>drugUsage &lt;- read.csv(&quot;StatsProject-Data.csv&quot;)
 
 head(drugUsage)</code></pre>
-<pre><code>##   Index Estimate Age      State      Drug
-## 1     1       37   1    Alabama Marijuana
-## 2     2       11   1     Alaska Marijuana
-## 3     3       74   1    Arizona Marijuana
-## 4     4       29   1   Arkansas Marijuana
-## 5     5      431   1 California Marijuana
-## 6     6       76   1   Colorado Marijuana</code></pre>
+<pre><code>##   Year Month Precipitation Average.Temp    CO2
+## 1 1979     1          21.4       -16.68 336.56
+## 2 1979     2          38.2       -12.72 337.29
+## 3 1979     3          71.3        -2.64 337.88
+## 4 1979     4          19.7         5.60 338.32
+## 5 1979     5         106.9        12.57 338.26
+## 6 1979     6         172.2        19.07 337.38</code></pre>
 
 
 
