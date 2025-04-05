@@ -20,7 +20,7 @@ library(knitr)
 
 <h3><strong> Dataset </strong></h3>
 
-The following is a data set gathered using environmental tracking websites and contains data on the the meteorologic data in the state of Minnesota as well as the CO2 levels in the atmosphere during the corresponding month and year. 
+The following is a data set gathered using environmental tracking websites and contains data on the the meteorologic data in the state of Minnesota as well as the CO2 levels in the atmosphere during the corresponding month and year.
 
 <u> Year- </u>
 <br>
@@ -42,7 +42,9 @@ The following is a data set gathered using environmental tracking websites and c
 <br>
 &nbsp; This is the average CO2 concentration for the corresponding time sample. This is measured in ppm (parts per million).
 
-<h3><strong> Seeting Up The Dataset </strong></h3>
+
+<h3><strong> Setting Up The Dataset </strong></h3>
+<br>
 
 ```{r}
 
@@ -56,11 +58,111 @@ head(environmentalData)
 
 environmentalDataYearly <- environmentalData %>%
   group_by(Year) %>%
-  summarize(Avg_Prec = mean(Precipitation), Avg_Temp = mean(Average.Temp), Avg_CO2 = mean(CO2), digits = 2)
+  summarize(
+    Avg_Prec = mean(Precipitation, na.rm = TRUE),
+    Avg_Temp = mean(Average.Temp, na.rm = TRUE),
+    Avg_CO2 = mean(CO2, na.rm = TRUE))
 
 head(environmentalDataYearly)
 
 ```
 
+```{r}
+
+averagedByMonthData <- environmentalData %>%
+  group_by(Month) %>%
+  summarize(
+    Avg_Prec = mean(Precipitation, na.rm = TRUE),
+    Avg_Temp = mean(Average.Temp, na.rm = TRUE),
+    Avg_CO2 = mean(CO2, na.rm = TRUE))
+
+averagedByMonthData
+
+```
+
+
+<h3><strong> Examining The Data Through Plots </strong></h3>
+<br>
+
+```{r}
+
+ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Prec)) +
+  geom_point(color = "blue") +
+  theme_bw() +
+  labs(title = "Relationship of Precipitation Levels Versus Time.", x = "Time (years)", y = "Precipitation (inches)")
+
+```
+
+<br>
+
+This graph tells us that the precipitation doesn't really take much of a noticeable increase or decrease over time in the state of Minnesota. However, you can just barely notice a very slight increase in average precipitation as time goes on if you look hard enough. 
+
+<br>
+<hr style="border: 1px solid black;">
+
+```{r, warning = FALSE}
+
+ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Temp)) +
+  geom_point(color = "orange") +
+  theme_bw() +
+  labs(title = "Relationship of Temperature Levels Versus Time.", x = "Time (years)", y = "Temperature (C°)")
+
+```
+
+<br>
+
+This graph tells us that the average temperature doesn't take a noticeable increase or decrease in the state of Minnesota as time goes on.
+
+<br>
+<hr style="border: 1px solid black;">
+
+```{r, warning = FALSE}
+
+ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_CO2)) +
+  geom_point(color = "red") +
+  theme_bw() +
+  labs(title = "Realtionship of CO2 Levels Versus Time.", x = "Time (years)", y = "CO2 (ppm)")
+
+```
+
+<br>
+<hr style="border: 1px solid black;">
+
+This graph tells us that there's a very strong linear relationship of the increase of CO2 in the atmosphere as time goes on. It's important to note that this information doesn't tell us much more than that but we can speculate the reasons behind it.
+
+<br>
+
+```{r}
+
+ggplot(data = averagedByMonthData, aes(x = Month, y = Avg_Prec)) + 
+  geom_bar(stat = "identity", color ="blue", fill =
+  "skyblue") +
+  theme_bw() +
+  labs(title = "Relationship Between the Month and the Average Precipitation.", x = "Month", y = "Average Precipitation (inches)")
+
+```
+
+<br>
+<hr style="border: 1px solid black;">
+
+This graph tells us that during the summer months there is a considerable amount of more precipitation than during the cold months in the year in the state of Minnesota.
+
+<br>
+
+```{r}
+
+ggplot(data = averagedByMonthData, aes(x = Month, y = Avg_Temp)) + 
+  geom_bar(stat = "identity", color ="red", fill =
+  "orange") +
+  theme_bw() +
+  labs(title = "Relationship Between the Month and the Average Temperature.", x = "Month", y = "Average Temperature (C°)")
+
+```
+
+<br>
+
+This graph tells us that the average temperatures during the summer months are much hotter than during the cold months in the state of Minnesota. This checks out from our own common sense.
+
+<br>
 
 
