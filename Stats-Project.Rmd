@@ -42,18 +42,23 @@ The following is a data set gathered using environmental tracking websites and c
 <br>
 &nbsp; This is the average CO2 concentration for the corresponding time sample. This is measured in ppm (parts per million).
 
+<h3><strong> Seeting Up The Dataset </strong></h3>
 
 ```{r}
 
-drugUsage <- read.csv("StatsProject-Data.csv")
+environmentalData <- read.csv("StatsProject-Data.csv")
 
-head(drugUsage)
+head(environmentalData)
 
 ```
 
 ```{r}
 
+environmentalDataYearly <- environmentalData %>%
+  group_by(Year) %>%
+  summarize(Avg_Prec = mean(Precipitation), Avg_Temp = mean(Average.Temp), Avg_CO2 = mean(CO2), digits = 2)
 
+head(environmentalDataYearly)
 
 ```
 
