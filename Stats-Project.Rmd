@@ -106,6 +106,7 @@ This graph tells us that the precipitation doesn't really take much of a noticea
 
 ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Temp)) +
   geom_point(color = "orange") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
   theme_bw() +
   labs(title = "Relationship of Temperature Levels Versus Time.", x = "Time (years)", y = "Temperature (C°)")
 
@@ -175,7 +176,7 @@ avg_Temp_bootstrap <- environmentalData %>%
   calculate(stat = "mean")
 
 ggplot(avg_Temp_bootstrap, aes(x = stat)) +
-  geom_histogram(bins = 30, fill = "green", color = "darkgreen") +
+  geom_histogram(bins = 30, fill = "orange", color = "red") +
   theme_bw() +
   labs(title = "Bootstrap distribution of Average Temperature", x = "Mean Temperature (C°)", y = "Frequency")
 ```
