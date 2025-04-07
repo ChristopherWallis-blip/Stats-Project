@@ -129,11 +129,11 @@ ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_CO2)) +
 ```
 
 <br>
-<hr style="border: 1px solid black;">
 
 This graph tells us that there's a very strong linear relationship of the increase of CO2 in the atmosphere as time goes on. It's important to note that this information doesn't tell us much more than that but we can speculate the reasons behind it.
 
 <br>
+<hr style="border: 1px solid black;">
 
 ```{r}
 
@@ -146,11 +146,11 @@ ggplot(data = averagedByMonthData, aes(x = Month, y = Avg_Prec)) +
 ```
 
 <br>
-<hr style="border: 1px solid black;">
 
 This graph tells us that during the summer months there is a considerable amount of more precipitation than during the cold months in the year in the state of Minnesota.
 
 <br>
+<hr style="border: 1px solid black;">
 
 ```{r}
 
@@ -167,6 +167,7 @@ ggplot(data = averagedByMonthData, aes(x = Month, y = Avg_Temp)) +
 This graph tells us that the average temperatures during the summer months are much hotter than during the cold months in the state of Minnesota. This checks out from our own common sense.
 
 <br>
+<hr style="border: 1px solid black;">
 
 ```{r, warning = FALSE}
 set.seed(45)
@@ -181,7 +182,12 @@ ggplot(avg_Temp_bootstrap, aes(x = stat)) +
   labs(title = "Bootstrap distribution of Average Temperature", x = "Mean Temperature (C°)", y = "Frequency")
 ```
 
-This histogram shows the distribution of average temperatures from 1000 samples using the bootstraping method. This shows what we expect the average temperature to be if we randomly select a sample from our population.
+<br>
+
+This histogram shows the distribution of average temperatures from 1000 samples using the bootstrapping method. This shows what we expect the average temperature to be if we randomly select a sample from our population.
+
+<br>
+<hr style="border: 1px solid black;">
 
 ```{r}
 avg_Temp_CI <- avg_Temp_bootstrap %>%
@@ -192,5 +198,9 @@ avg_Temp_CI <- avg_Temp_bootstrap %>%
 avg_Temp_CI
 ```
 
-This shows the 95% confidence interval of the bootstraped distribution. We are 95% confident that the mean of a sample of the Average Tempurature will be between approximately 6.8 and 8.7 degrees Celsius. 
 <br>
+
+This shows the 95% confidence interval of the bootstraped distribution. We are 95% confident that the mean of a sample of the Average Temperature will be between approximately 6.8 and 8.7 degrees Celsius. 
+
+<br>
+<hr style="border: 1px solid black;">
