@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(knitr)
+library(moderndive)
+library(readr)
 library(infer)
 
 ```
@@ -169,7 +171,46 @@ This graph tells us that the average temperatures during the summer months are m
 <br>
 <hr style="border: 1px solid black;">
 
+<br>
+<h3><strong> Using Linear Regression </strong></h3>
+<br>
+
+```{r}
+
+CO2_mod <- lm(Avg_CO2 ~ Year, data
+    = environmentalDataYearly)
+
+get_regression_table(CO2_mod)
+
+```
+
+<br>
+
+Using this data we can tell that the CO2 hasn't always increased at this rate, due to the fact that you can't really have a negative CO2 level. This lets us guess taht maybe something recent in history has caused the increase in CO2 that we see today.
+
+<br>
+
+```{r}
+
+prec_mod <- lm(Avg_Prec ~ Year, data =
+    environmentalDataYearly)
+
+get_regression_table(prec_mod)
+
+```
+
+<br>
+
+Once again, this linear regression model tells us that we can not blindly follow this data. The regression table tells us that there is a negative intercept which means that according to the data, in 0 CE there was an average of -304 inches of rain that year. Obviously this makes no sense because you can not have a negative rain amount.
+
+<br>
+<hr style="border: 1px solid black;">
+<br>
+<h3><strong> Using Bootstrapping Techniques </strong></h3>
+<br>
+
 ```{r, warning = FALSE}
+
 set.seed(45)
 avg_Temp_bootstrap <- environmentalData %>%
   specify(response = Average.Temp) %>%
@@ -180,6 +221,7 @@ ggplot(avg_Temp_bootstrap, aes(x = stat)) +
   geom_histogram(bins = 30, fill = "orange", color = "red") +
   theme_bw() +
   labs(title = "Bootstrap distribution of Average Temperature", x = "Mean Temperature (C°)", y = "Frequency")
+
 ```
 
 <br>
@@ -187,20 +229,19 @@ ggplot(avg_Temp_bootstrap, aes(x = stat)) +
 This histogram shows the distribution of average temperatures from 1000 samples using the bootstrapping method. This shows what we expect the average temperature to be if we randomly select a sample from our population.
 
 <br>
-<hr style="border: 1px solid black;">
 
 ```{r}
+
 avg_Temp_CI <- avg_Temp_bootstrap %>%
   summarize(
     lower = quantile(stat, 0.025),
     upper = quantile(stat, 0.975)
   )
+
 avg_Temp_CI
+
 ```
 
 <br>
 
-This shows the 95% confidence interval of the bootstraped distribution. We are 95% confident that the mean of a sample of the Average Temperature will be between approximately 6.8 and 8.7 degrees Celsius. 
-
-<br>
-<hr style="border: 1px solid black;">
+This shows the 95% confidence interval of the bootstrapped distribution. We are 95% confident that the mean of a sample of the Average Temperature will be between approximately 6.8 and 8.7 degrees Celsius. 
