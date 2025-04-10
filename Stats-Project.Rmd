@@ -72,6 +72,7 @@ head(environmentalDataYearly)
 
 ```{r}
 
+
 averagedByMonthData <- environmentalData %>%
   group_by(Month) %>%
   summarize(
@@ -186,7 +187,7 @@ get_regression_table(CO2_mod)
 
 <br>
 
-Using this data we can tell that the CO2 hasn't always increased at this rate, due to the fact that you can't really have a negative CO2 level. This lets us guess taht maybe something recent in history has caused the increase in CO2 that we see today.
+Using this data we can tell that the CO2 hasn't always increased at this rate, due to the fact that you can't really have a negative CO2 level. This lets us guess that maybe something recent in history has caused the increase in CO2 that we see today.
 
 <br>
 
@@ -245,3 +246,18 @@ avg_Temp_CI
 <br>
 
 This shows the 95% confidence interval of the bootstrapped distribution. We are 95% confident that the mean of a sample of the Average Temperature will be between approximately 6.8 and 8.7 degrees Celsius. 
+
+
+<br>
+<hr style="border: 1px solid black;">
+<h3> <strong> T-distribution </strong> </h3>
+<br>
+```{r}
+t.test(averagedByMonthData$Avg_CO2)
+
+```
+
+<br>
+This t-test shows that the mean CO2 count is 374.85 ppm. The 95 percent confidence interval is between 374 and 375.706. Since the p-value is less than 0.05, this value is statistically significant. 
+
+
