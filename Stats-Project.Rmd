@@ -200,9 +200,36 @@ get_regression_table(prec_mod)
 
 ```
 
+
 <br>
 
 Once again, this linear regression model tells us that we can not blindly follow this data. The regression table tells us that there is a negative intercept which means that according to the data, in 0 CE there was an average of -304 inches of rain that year. Obviously this makes no sense because you can not have a negative rain amount.
+
+<br>
+<hr style="border: 1px solid black;">
+<h3> <strong> Mean Standard Error and Root Mean Standard Error </strong> </h3>
+<br>
+
+```{r}
+get_regression_points(prec_mod) %>%
+  mutate(sq_residuals = residual^2) %>%
+  summarise(mse = mean(sq_residuals), rmse = sqrt(mean(sq_residuals)))
+
+```
+
+The Mean Standard Error (MSE) and Root Mean Standard Error (RMSE) are great indicators to show us the accuracy of our model, especially the RMSE. In this example, we are calculating the MSE and the RMSE of the linear regression model for the average precipitation per year. The RMSE will help us deteremine the accuracy of our model. Since the RMSE is 10.626, we can assume that the model will accurately predict the precipitation within 10.626 inches of the observed value.
+
+<br>
+
+```{r}
+get_regression_points(CO2_mod) %>%
+  mutate(sq_residuals = residual^2) %>%
+  summarise(mse = mean(sq_residuals), rmse = sqrt(mean(sq_residuals)))
+
+```
+In this example, we calculate the Mean Standard Error and Root Mean Standard Error of the linear regression for the average CO2 concentration per year. The RMSE allows us to determine how accurate our linear regression model is. Since the RMSE is 2.572, we can assume that the model will accurately predict the CO2 concentration within 2.572 parts per million.
+
+
 
 <br>
 <hr style="border: 1px solid black;">
@@ -246,9 +273,13 @@ avg_Temp_CI
 <br>
 
 This shows the 95% confidence interval of the bootstrapped distribution. We are 95% confident that the mean of a sample of the Average Temperature will be between approximately 6.8 and 8.7 degrees Celsius. 
-
-
 <br>
+
+
+
+
+
+
 <hr style="border: 1px solid black;">
 <h3> <strong> T-distribution </strong> </h3>
 <br>
