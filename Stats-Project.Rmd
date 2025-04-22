@@ -92,7 +92,7 @@ averagedByMonthData
 
 ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Prec)) +
   geom_point(color = "blue") +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  geom_smooth(method = "lm", color = "red") +
   theme_bw() +
   labs(title = "Relationship of Precipitation Levels Versus Time.", x = "Time (years)", y = "Precipitation (inches)")
 
@@ -244,11 +244,9 @@ avg_Temp_bootstrap <- environmentalData %>%
   specify(response = Average.Temp) %>%
   generate(reps = 1000, type = "bootstrap") %>%
   calculate(stat = "mean")
-
-ggplot(avg_Temp_bootstrap, aes(x = stat)) +
-  geom_histogram(bins = 30, fill = "orange", color = "red") +
-  theme_bw() +
-  labs(title = "Bootstrap distribution of Average Temperature", x = "Mean Temperature (C°)", y = "Frequency")
+ci <- get_confidence_interval(avg_Temp_bootstrap)
+visualize(avg_Temp_bootstrap) +
+  shade_confidence_interval(endpoints = ci)
 
 ```
 
@@ -281,14 +279,37 @@ This shows the 95% confidence interval of the bootstrapped distribution. We are 
 
 
 <hr style="border: 1px solid black;">
-<h3> <strong> T-distribution </strong> </h3>
+<h3> <strong> Hypothesis testing </strong> </h3>
 <br>
 ```{r}
-t.test(averagedByMonthData$Avg_CO2)
+summer_CO2 <- environmentalData %>%
+  filter(Month %in% c(6, 7, 8)) %>%
+  pull(CO2)
+
+winter_CO2 <- environmentalData %>%
+  filter(Month %in% c(12, 1, 2)) %>%
+  pull(CO2)
+
+t.test(summer_CO2, winter_CO2)
 
 ```
 
 <br>
-This t-test shows that the mean CO2 count is 374.85 ppm. The 95 percent confidence interval is between 374 and 375.706. Since the p-value is less than 0.05, this value is statistically significant. 
+This t-test shows that there is no statistical different between the CO2 level in the summer and winter months. We se this because the p-value is greater than .05, so we fail to reject the null hypothesis. Another thing that tips us off is the fact that the 95% confidence interval includes 0.
 
 
+
+<br>
+
+```{r}
+summer_temps <- environmentalData %>%
+  filter(Month %in% c(6, 7, 8)) %>%
+  pull(Average.Temp)
+
+winter_temps <- environmentalData %>%
+  filter(Month %in% c(12, 1, 2)) %>%
+  pull(Average.Temp)
+
+t.test(summer_temps, winter_temps)
+```
+From the two-sample t-test, we can see that there is a statistically significant difference between the average temperature of the summer months and the average temperature of the winter months. Since the p-value is less than .05, we reject the null hypothesis. The 95% confidence interval shows us that we are 95% confident that the average difference in temperatures is between 28.4 and 29.8 degrees Celsius.
