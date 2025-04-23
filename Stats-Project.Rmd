@@ -98,13 +98,19 @@ ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Prec)) +
 
 ```
 
+```{r}
+
+cor(environmentalDataYearly$Year, environmentalDataYearly$Avg_Prec)
+
+```
+
+
 <br>
 
 This graph tells us that the precipitation doesn't really take much of a noticeable increase or decrease over time in the state of Minnesota. However, you can just barely notice a very slight increase in average precipitation as time goes on if you look hard enough. The red regression line also helps visualize the change in precipitation over time.
 
 <br>
 <hr style="border: 1px solid black;">
-
 ```{r, warning = FALSE}
 
 ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Temp)) +
@@ -112,6 +118,12 @@ ggplot(data = environmentalDataYearly, aes(x = Year, y = Avg_Temp)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   theme_bw() +
   labs(title = "Relationship of Temperature Levels Versus Time.", x = "Time (years)", y = "Temperature (C°)")
+
+```
+
+```{r}
+
+cor(environmentalDataYearly$Year, environmentalDataYearly$Avg_Temp)
 
 ```
 
@@ -185,6 +197,16 @@ get_regression_table(CO2_mod)
 
 ```
 
+```{r}
+
+CO22_mod <- lm(Avg_CO2 ~ Year + Avg_Prec, data =
+    environmentalDataYearly)
+
+get_regression_table(CO22_mod)
+
+```
+
+
 <br>
 
 Using this data we can tell that the CO2 hasn't always increased at this rate, due to the fact that you can't really have a negative CO2 level. This lets us guess that maybe something recent in history has caused the increase in CO2 that we see today.
@@ -197,6 +219,18 @@ prec_mod <- lm(Avg_Prec ~ Year, data =
     environmentalDataYearly)
 
 get_regression_table(prec_mod)
+
+```
+
+
+<br>
+
+```{r}
+
+prec2_mod <- lm(Avg_Prec ~ Year + Avg_CO2, data = 
+    environmentalDataYearly)
+
+get_regression_table(prec2_mod)
 
 ```
 
